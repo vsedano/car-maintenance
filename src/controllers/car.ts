@@ -13,7 +13,24 @@ export const createCar: RequestHandler = async (req, res) => {
 }
 
 export const getCars: RequestHandler = async (req, res) => {
-    const cars = await Car.find()
+    const cars = await Car.aggregate([
+        {
+          $project: {
+            id: 1,
+            make: 1,
+            model: 1,
+            description: 1,
+            km: 1,
+            image: 1,
+            estimatedate: {
+              $dateToString: {
+                format: "%Y/%m/%d",
+                date: "$estimatedate"
+              }
+            }
+          }
+        }
+      ])
     if(cars && cars.length){
         return res.status(200).json(cars)
     }else{
