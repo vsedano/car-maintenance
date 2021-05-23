@@ -14,7 +14,7 @@ const Home: FC<{}> = () => {
         (async function() {
             await getCars()
         })()
-    }, [])
+    }, [getCars])
     
     const renderCars = (): undefined | JSX.Element[] | string => {
         if(cars && cars.length){

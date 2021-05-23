@@ -33,7 +33,7 @@ export default React.memo(function ICar({_id, make, model, description, km, imag
             if(inputName.value && inputDate.value){
               (async function() {
                 try{
-                  const result = await updateCar(_id, inputName.value, new Date(inputDate.value))
+                  await updateCar(_id, inputName.value, new Date(inputDate.value))
                   Toast.fire({
                     icon: 'success',
                     title: `#${ _id } ${ make } ${ model } under maintenance`
