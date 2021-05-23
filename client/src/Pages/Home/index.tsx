@@ -1,5 +1,6 @@
 import React, { useEffect, FC } from 'react'
 
+import { MainContainer, Header, TextHeader, CarsContainer } from './styles'
 import Car from '../../Components/Car'
 import MyStore from '../../Store'
 const useStore = MyStore
@@ -22,9 +23,14 @@ const Home: FC<{}> = () => {
     }
 
     return(
-        <div>
-            {renderCars()}
-        </div>
+        <MainContainer>
+            <Header>
+                <TextHeader>Car Maintenance</TextHeader>
+            </Header>
+            <CarsContainer>
+                {renderCars()}
+            </CarsContainer>
+        </MainContainer>
     )
 }
 
