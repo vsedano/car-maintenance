@@ -10,7 +10,7 @@ export default create((setState: SetState<MyState>, getState: GetState<MyState>)
         cars: [],
         carDetail: undefined,
         getCars: () => {
-            axios.get("/cars").then(res =>{
+            axios.get('/cars').then(res =>{
                 setState({cars: res.data})
             }).catch(error => console.error(error))
         },
@@ -19,10 +19,11 @@ export default create((setState: SetState<MyState>, getState: GetState<MyState>)
             const carDetail = await result.json()
             setState({carDetail})
         },
-        updateCar: async (carId: number | string, date: Date) => {
+        updateCar: async (carId: number | string, name: string, date: Date) => {
             axios.put(`/car/${carId}`, 
             {
-                'estimatedate': date
+                'estimatedate': date,
+                'username': name
             }).then(res =>{
                 setState({carDetail: res.data}) 
             }).catch(error => alert(error))

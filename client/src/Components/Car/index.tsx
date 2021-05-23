@@ -2,6 +2,7 @@ import React, { useState, MouseEvent } from 'react'
 import Swal from 'sweetalert2'
 
 import { CarContainer, MainCarContainer, Gear, CarImage, CarData, CarName, CarDescription, CarDate, DescriptionContainer,  KMContainer, CarKM } from './styles'
+import Toast from '../../alertSwal'
 import { ICar } from '../../Store/types';
 import MyStore from '../../Store'
 const useStore = MyStore
@@ -12,39 +13,41 @@ export default React.memo(function ICar({_id, make, model, description, km, imag
 
     const handleOnClick = (event: MouseEvent) => {
         if(estimatedate){
-          Swal.fire({
+          Toast.fire({
             icon: 'error',
             title: `#${ _id } ${ make } ${ model } is already under maintenance`
           })
         }else{
           Swal.fire({
           title: `#${ _id } ${ make } ${ model }`,
-          html:`<div>
-            <b>Requirement:</b> ${ description }<br>
-            <b>Estimated date: </b>
+          html:`<label>Requirement: ${ description }</label><br>
+            <label>User name: </label>
+            <input type="text" id="name"><br>
+            <label>Estimated date: </label>
             <input type="date" id="date">`,
           showCancelButton: true,
           confirmButtonText: `Save`,
           preConfirm: () => {
+            const inputName = document.getElementById('name') as HTMLInputElement
             const inputDate = document.getElementById('date') as HTMLInputElement
-            if(inputDate.value){
+            if(inputName.value && inputDate.value){
               (async function() {
                 try{
-                  const result = await updateCar(_id, new Date(inputDate.value))
-                  Swal.fire({
+                  const result = await updateCar(_id, inputName.value, new Date(inputDate.value))
+                  Toast.fire({
                     icon: 'success',
                     title: `#${ _id } ${ make } ${ model } under maintenance`
                   })
                   setDate(inputDate.value.replaceAll('-', '/'))
                 } catch (error){
-                  Swal.fire({
+                  Toast.fire({
                     icon: 'success',
                     title: `Error: ${ error }`
                   })
                 }
               })()
             }else {
-              Swal.fire({
+              Toast.fire({
                 icon: 'error',
                 title: `User name and Estimated date are required`
               })
