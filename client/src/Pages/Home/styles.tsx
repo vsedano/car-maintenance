@@ -31,7 +31,7 @@ export const TextHeader = styled.h1`
   color: #FFFFFF;
   padding: 0;
   font-size: 24px;
-  font-family: 'Lato', sans-serif;
+  font-family:  'Lato', sans-serif;
 `;
 
 export const CarsContainer = styled.div `
