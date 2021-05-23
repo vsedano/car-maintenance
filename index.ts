@@ -1,15 +1,20 @@
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 import mongoose, { ConnectOptions } from 'mongoose'
 
-import config from './config'
-import routes from './routes'
+import config from './src/config'
+import routes from './src/routes'
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
-app.use(routes);
+//app.use(express.static(path.join(__dirname, '/client/build/index.html')));
+app.use('', routes);
+/*app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'))
+});*/
 
 (async () => {
     try {
