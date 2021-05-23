@@ -8,7 +8,6 @@ export interface ICar {
     estimatedate: string;
 }
 
-
 export interface MyState {
     cars: ICar[];
     carDetail: ICar | undefined;
